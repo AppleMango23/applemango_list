@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, FlatList, StyleSheet, TextInput } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
 import { Text, View } from "@/components/Themed";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { clear, getItem, setItem } from "@/helpers/AsyncHelpers";
 
@@ -14,11 +19,12 @@ export default function TabOneScreen() {
     onFetchTasksList();
   }, []);
 
-  interface ItaskList {
-    index: number;
-    value: string;
-    dateTime: string;
-  }
+  // MARK: Types
+  type ActionButtonProps = {
+    title: string;
+    onPress: () => void;
+    iconName: string;
+  };
 
   // MARK: Events
   async function onFetchTasksList() {
@@ -112,10 +118,27 @@ export default function TabOneScreen() {
           placeholder="What's your task?"
         />
         <View style={styles.actionButtonRow}>
-          <Button title="Clear Task" onPress={onClearButtonPress} />
-          <Button title="Submit Task" onPress={onSubmitTaskPress} />
+          {renderActionButton({
+            title: "Clear All",
+            onPress: onClearButtonPress,
+            iconName: "playlist-remove",
+          })}
+          {renderActionButton({
+            title: "Submit Task",
+            onPress: onSubmitTaskPress,
+            iconName: "playlist-add",
+          })}
         </View>
       </View>
+    );
+  }
+
+  function renderActionButton({ title, onPress, iconName }: ActionButtonProps) {
+    return (
+      <TouchableOpacity onPress={onPress} style={styles.actionButton}>
+        <MaterialIcons name={iconName} color={"white"} size={17} />
+        <Text style={styles.actionButtonText}>{title}</Text>
+      </TouchableOpacity>
     );
   }
 
@@ -163,5 +186,19 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     padding: 10,
     borderRadius: 20,
+  },
+  actionButton: {
+    backgroundColor: "#0a7efe",
+    borderRadius: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  actionButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
+    marginLeft: 5,
   },
 });
