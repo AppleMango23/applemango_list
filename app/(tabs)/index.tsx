@@ -7,12 +7,13 @@ import {
 } from "react-native";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 import { Text, View } from "@/components/Themed";
 import { clear, getItem, setItem } from "@/helpers/AsyncHelpers";
-import { ActionButtonProps, ITaskList } from "@/helpers/types";
+import { ITaskList } from "@/helpers/types";
 import Colors from "@/constants/Colors";
+import { BlockButton } from "@/components/buttons";
 
 export default function TabOneScreen() {
   const [taskList, setTaskList] = useState<ITaskList[]>([]);
@@ -119,27 +120,18 @@ export default function TabOneScreen() {
           placeholder="What's your task?"
         />
         <View style={styles.actionButtonRow}>
-          {renderActionButton({
-            title: "Clear All",
-            onPress: onClearButtonPress,
-            iconName: "playlist-remove",
-          })}
-          {renderActionButton({
-            title: "Submit Task",
-            onPress: onSubmitTaskPress,
-            iconName: "playlist-add",
-          })}
+          <BlockButton
+            title="Clear All"
+            onPress={onClearButtonPress}
+            iconName="playlist-remove"
+          />
+          <BlockButton
+            title="Submit Task"
+            onPress={onSubmitTaskPress}
+            iconName="playlist-add"
+          />
         </View>
       </View>
-    );
-  }
-
-  function renderActionButton({ title, onPress, iconName }: ActionButtonProps) {
-    return (
-      <TouchableOpacity onPress={onPress} style={styles.actionButton}>
-        <MaterialIcons name={iconName} color={"white"} size={17} />
-        <Text style={styles.actionButtonText}>{title}</Text>
-      </TouchableOpacity>
     );
   }
 
