@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Alert,
   FlatList,
   StyleSheet,
   TextInput,
@@ -81,6 +82,19 @@ export default function TabOneScreen() {
     setItem("tasksList", newTaskList);
   }
 
+  function onConfirmationClear() {
+    Alert.alert("Clear All Confirmation", "Are you sure clear all?", [
+      {
+        text: "No",
+        style: "cancel",
+      },
+      {
+        text: "Yes",
+        onPress: onClearButtonPress,
+      },
+    ]);
+  }
+
   // MARK: Render Methods
   function renderTaskRow({ item }: { item: ITaskList }) {
     return (
@@ -105,7 +119,11 @@ export default function TabOneScreen() {
             size={22}
           />
         )}
-        <Text style={styles.taskText}>{item?.value}</Text>
+        <Text
+          style={!item?.isChecked ? styles.taskText : styles.taskTextStrike}
+        >
+          {item?.value}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -122,11 +140,11 @@ export default function TabOneScreen() {
         <View style={styles.actionButtonRow}>
           <BlockButton
             title="Clear All"
-            onPress={onClearButtonPress}
+            onPress={onConfirmationClear}
             iconName="playlist-remove"
           />
           <BlockButton
-            title="Submit Task"
+            title="Add Task"
             onPress={onSubmitTaskPress}
             iconName="playlist-add"
           />
@@ -153,6 +171,12 @@ const styles = StyleSheet.create({
   taskText: {
     fontSize: 16,
     marginLeft: 5,
+  },
+  taskTextStrike: {
+    fontSize: 16,
+    marginLeft: 5,
+    textDecorationLine: "line-through",
+    textDecorationStyle: "solid",
   },
   taskRow: {
     flexDirection: "row",
