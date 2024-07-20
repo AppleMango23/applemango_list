@@ -20,7 +20,7 @@ export default function BlockButton({
 const styles = StyleSheet.create({
   actionButton: {
     backgroundColor: Colors.theme.background,
-    borderRadius: 5,
+    borderRadius: 25,
     paddingVertical: 8,
     paddingHorizontal: 15,
     alignItems: "center",
