@@ -10,6 +10,7 @@ import { Text, View } from "@/components/Themed";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { clear, getItem, setItem } from "@/helpers/AsyncHelpers";
+import Colors from "@/constants/Colors";
 
 export default function TabOneScreen() {
   const [taskList, setTaskList] = useState([]);
@@ -91,14 +92,14 @@ export default function TabOneScreen() {
         {!item?.isChecked ? (
           <FontAwesome
             name={"square-o"}
-            color={"#0a7efe"}
+            color={Colors.theme.background}
             size={20}
             onPress={() => onCompleteButton(item.id)}
           />
         ) : (
           <FontAwesome
             name={"check-square-o"}
-            color={"#0a7efe"}
+            color={Colors.theme.background}
             size={20}
             onPress={() => onUnCompleteButton(item.id)}
           />
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   actionButton: {
-    backgroundColor: "#0a7efe",
+    backgroundColor: Colors.theme.background,
     borderRadius: 5,
     paddingVertical: 8,
     paddingHorizontal: 15,
