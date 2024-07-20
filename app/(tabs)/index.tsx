@@ -95,24 +95,29 @@ export default function TabOneScreen() {
   // MARK: Render Methods
   function renderTaskRow({ item }: { item: ITaskList }) {
     return (
-      <View style={styles.taskRow}>
+      <TouchableOpacity
+        onPress={() =>
+          !item?.isChecked
+            ? onCompleteButton(item.id)
+            : onUnCompleteButton(item.id)
+        }
+        style={styles.taskRow}
+      >
         {!item?.isChecked ? (
           <FontAwesome
             name={"square-o"}
             color={Colors.theme.background}
-            size={20}
-            onPress={() => onCompleteButton(item.id)}
+            size={22}
           />
         ) : (
           <FontAwesome
             name={"check-square-o"}
             color={Colors.theme.background}
-            size={20}
-            onPress={() => onUnCompleteButton(item.id)}
+            size={22}
           />
         )}
         <Text style={styles.taskText}>{item?.value}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -166,7 +171,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   taskText: {
-    fontSize: 15,
+    fontSize: 16,
     marginLeft: 5,
   },
   taskRow: {
