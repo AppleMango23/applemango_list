@@ -11,10 +11,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { FontAwesome } from "@expo/vector-icons";
 
 import { Text, View } from "@/components/Themed";
-import { clear, getItem, setItem } from "@/helpers/AsyncHelpers";
+import { removeItem, getItem, setItem } from "@/helpers/AsyncHelpers";
 import { ITaskList } from "@/helpers/types";
 import Colors from "@/constants/Colors";
 import { BlockButton } from "@/components/buttons";
+import { EmptyStatesSvg } from "@/components/others";
 
 export default function TabOneScreen() {
   const [taskList, setTaskList] = useState<ITaskList[]>([]);
@@ -26,7 +27,7 @@ export default function TabOneScreen() {
 
   // MARK: Events
   async function onFetchTasksList() {
-    const res = await getItem("tasksList");
+    const res = await getItem("testTasks");
     setTaskList(res);
   }
 
@@ -53,15 +54,14 @@ export default function TabOneScreen() {
         },
       ];
     }
-
     setTaskChange("");
     setTaskList(newTaskList);
-    setItem("tasksList", newTaskList);
+    setItem("testTasks", newTaskList);
   }
 
   async function onClearButtonPress() {
     setTaskList([]);
-    clear();
+    removeItem("testTasks");
   }
 
   async function onCompleteButton(id: number) {
@@ -70,7 +70,7 @@ export default function TabOneScreen() {
     );
 
     setTaskList(newTaskList);
-    setItem("tasksList", newTaskList);
+    setItem("testTasks", newTaskList);
   }
 
   async function onUnCompleteButton(id: number) {
@@ -79,7 +79,7 @@ export default function TabOneScreen() {
     );
 
     setTaskList(newTaskList);
-    setItem("tasksList", newTaskList);
+    setItem("testTasks", newTaskList);
   }
 
   function onConfirmationClear() {
@@ -90,7 +90,7 @@ export default function TabOneScreen() {
       },
       {
         text: "Yes",
-        onPress: onClearButtonPress,
+        onPress: () => onClearButtonPress(),
       },
     ]);
   }
@@ -156,7 +156,18 @@ export default function TabOneScreen() {
   return (
     <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.container}>
-        <FlatList data={taskList} renderItem={renderTaskRow} />
+        <FlatList
+          data={taskList}
+          renderItem={renderTaskRow}
+          ListEmptyComponent={
+            <EmptyStatesSvg
+              width="100%"
+              height="100%"
+              viewBox="0 0 900 900"
+              title="No Tasks Yet"
+            />
+          }
+        />
       </View>
       {renderFloatingInput()}
     </KeyboardAwareScrollView>
@@ -167,6 +178,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
+    justifyContent: "center",
   },
   taskText: {
     fontSize: 16,
