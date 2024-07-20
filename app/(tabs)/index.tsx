@@ -169,7 +169,7 @@ export default function TabOneScreen() {
           }
         />
       </View>
-      {/* {renderFloatingInput()} */}
+      {renderFloatingInput()}
     </KeyboardAwareScrollView>
   );
 }
