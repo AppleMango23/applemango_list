@@ -13,7 +13,7 @@ import { clear, getItem, setItem } from "@/helpers/AsyncHelpers";
 import Colors from "@/constants/Colors";
 
 export default function TabOneScreen() {
-  const [taskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState<ITaskList[]>([]);
   const [taskChange, setTaskChange] = useState("");
 
   useEffect(() => {
@@ -25,6 +25,13 @@ export default function TabOneScreen() {
     title: string;
     onPress: () => void;
     iconName: string;
+  };
+
+  type ITaskList = {
+    id: number;
+    value: string;
+    isChecked: boolean;
+    dateTime: string;
   };
 
   // MARK: Events
@@ -67,7 +74,7 @@ export default function TabOneScreen() {
     clear();
   }
 
-  async function onCompleteButton(id) {
+  async function onCompleteButton(id: number) {
     const newTaskList = taskList.map((task) =>
       task.id === id ? { ...task, isChecked: true } : task
     );
@@ -76,7 +83,7 @@ export default function TabOneScreen() {
     setItem("tasksList", newTaskList);
   }
 
-  async function onUnCompleteButton(id) {
+  async function onUnCompleteButton(id: number) {
     const newTaskList = taskList.map((task) =>
       task.id === id ? { ...task, isChecked: false } : task
     );
@@ -86,7 +93,7 @@ export default function TabOneScreen() {
   }
 
   // MARK: Render Methods
-  function renderTaskRow({ item }) {
+  function renderTaskRow({ item }: { item: ITaskList }) {
     return (
       <View style={styles.taskRow}>
         {!item?.isChecked ? (
