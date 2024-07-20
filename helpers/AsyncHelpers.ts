@@ -26,44 +26,10 @@ export const removeItem = async (key: string): Promise<void> => {
   }
 };
 
-export const mergeItem = async (key: string, value: any): Promise<void> => {
-  try {
-    await AsyncStorage.mergeItem(key, JSON.stringify(value));
-  } catch (error) {
-    console.error("Error merging item:", error);
-  }
-};
-
 export const clear = async (): Promise<void> => {
   try {
     await AsyncStorage.clear();
   } catch (error) {
     console.error("Error clearing AsyncStorage:", error);
-  }
-};
-
-export const getAllKeys = async (): Promise<string[]> => {
-  try {
-    return await AsyncStorage.getAllKeys();
-  } catch (error) {
-    console.error("Error getting all keys:", error);
-    return [];
-  }
-};
-
-export const getAllItems = async (): Promise<{ [key: string]: any }> => {
-  try {
-    const readonlyKeys = await AsyncStorage.getAllKeys();
-    const keys = [...readonlyKeys]; // Create a mutable copy of the readonly array
-    const items = await AsyncStorage.multiGet(keys);
-    return items.reduce((accumulator, [key, value]) => {
-      if (value != null) {
-        accumulator[key] = JSON.parse(value);
-      }
-      return accumulator;
-    }, {} as { [key: string]: any });
-  } catch (error) {
-    console.error("Error getting all items:", error);
-    return {};
   }
 };
