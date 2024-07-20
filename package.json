@@ -1,5 +1,5 @@
 {
-  "name": "applemango_list",
+  "name": "applemangolist",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -13,7 +13,9 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^14.0.2",
+    "@expo/config": "8.1.1",
+    "@expo/metro-config": "0.10.0",
+    "@expo/vector-icons": "14.0.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/native": "^6.0.2",
     "expo": "~51.0.18",
@@ -23,6 +25,7 @@
     "expo-splash-screen": "~0.27.5",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
+    "expo-updates": "~0.25.18",
     "expo-web-browser": "~13.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
