@@ -6,10 +6,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { Text, View } from "@/components/Themed";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+
+import { Text, View } from "@/components/Themed";
 import { clear, getItem, setItem } from "@/helpers/AsyncHelpers";
+import { ActionButtonProps, ITaskList } from "@/helpers/types";
 import Colors from "@/constants/Colors";
 
 export default function TabOneScreen() {
@@ -19,20 +21,6 @@ export default function TabOneScreen() {
   useEffect(() => {
     onFetchTasksList();
   }, []);
-
-  // MARK: Types
-  type ActionButtonProps = {
-    title: string;
-    onPress: () => void;
-    iconName: string;
-  };
-
-  type ITaskList = {
-    id: number;
-    value: string;
-    isChecked: boolean;
-    dateTime: string;
-  };
 
   // MARK: Events
   async function onFetchTasksList() {
