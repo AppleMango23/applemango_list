@@ -5,18 +5,21 @@ import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 
 export default function ProfileSettings() {
-
-  function RenderBottomInfoWrapper(title: string, number: number, iconName: string){
-    return(
-        <View style={styles.userTypeWrapper}>
+  function RenderBottomInfoWrapper(
+    title: string,
+    number: number,
+    iconName: string
+  ) {
+    return (
+      <View style={styles.userTypeWrapper}>
         <MaterialCommunityIcons name={iconName} color={"white"} size={50} />
         <View style={styles.userTextWrapper}>
           <Text style={styles.titleWhite}>{title}</Text>
           <Text style={styles.locationWhite}>{number} Tasks</Text>
         </View>
-      </View>   
+      </View>
     );
-}
+  }
 
   return (
     <View style={styles.container}>
@@ -25,7 +28,7 @@ export default function ProfileSettings() {
           <Fontisto name={"user-secret"} color={"white"} size={90} />
         </View>
         <View>
-          <Text style={styles.title}>Noah Yek Baby</Text>
+          <Text style={styles.title}>Noah Yek</Text>
           <Text style={styles.location}>Malaysia</Text>
         </View>
       </View>
@@ -42,10 +45,9 @@ export default function ProfileSettings() {
         </View>
       </View>
 
-    {RenderBottomInfoWrapper("Personal", 10, "format-list-checks")}
-    {RenderBottomInfoWrapper("Work", 23, "briefcase")}
-    {RenderBottomInfoWrapper("Event", 30, "car-traction-control")}
-
+      {RenderBottomInfoWrapper("Personal", 10, "format-list-checks")}
+      {RenderBottomInfoWrapper("Work", 23, "briefcase")}
+      {RenderBottomInfoWrapper("Event", 30, "car-traction-control")}
     </View>
   );
 }
@@ -67,14 +69,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 20,
     paddingVertical: 15,
-    backgroundColor: Colors.theme.background
+    backgroundColor: Colors.theme.background,
   },
   userTextWrapper: {
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   userIconWrapper: {
     backgroundColor: Colors.theme.background,
-    borderRadius: 100,
+    borderRadius: 200,
     padding: 30,
   },
   title: {
@@ -93,17 +95,17 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     padding: 15,
     marginTop: 20,
-    borderRadius: 10
+    borderRadius: 10,
   },
   titleWhite: {
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
-    color: "white"
+    color: "white",
   },
   locationWhite: {
     fontSize: 17,
     marginLeft: 10,
-    color:"white"
+    color: "white",
   },
 });
